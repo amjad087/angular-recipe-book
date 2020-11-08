@@ -1,0 +1,81 @@
+<h3 *ngIf="editMode">Editing Mode</h3>
+<h3 *ngIf="!editMode">New Mode</h3>
+
+<div class="row">
+  <div class="col-xs-12">
+    <form [formGroup] = "recipeForm" (ngSubmit) = "onSubmit()">
+      <div class="row">
+        <div class="col-xs-12">
+          <button class="btn btn-success" [disabled] = "!recipeForm.valid" type="submit">{{editMode ? ' Update' : 'Save'}}</button>
+          <button
+            class="btn btn-danger"
+            type="button"
+            style="margin-left: 10px;"
+            *ngIf= "editMode"
+            (click) = "onDelete()">Delete</button>
+          <button
+            class="btn btn-danger"
+            type="button"
+            style="margin-left:
+            10px;"
+            (click) = "onClear()">Clear</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="name">Recipe Name</label>
+            <input type="text" class="form-control" formControlName="name" >
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="imgPath">Image Path</label>
+            <input type="text" class="form-control" formControlName="imagePath" #imgRef>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <img [src]="imgRef.value" style="max-width: 200px; max-height: 200px;" alt="">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea rows="4" class="form-control" formControlName="description"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12" formArrayName = "ingredients">
+          <div class="row"
+            *ngFor="let ingCtrl of IngredientControls; let i = index"
+            [formGroupName] = "i" style="margin-top: 10px;">
+            <div class="col-md-8">
+              <input type="text" formControlName = "name" class="form-control">
+            </div>
+            <div class="col-md-2">
+              <input type="number" formControlName = "amount" class="form-control">
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-danger" type="button" (click) = "onDeleteIngredient(i)">X</button>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-xs-12">
+              <button class="btn btn-success" type="button" (click) = "onAddIngredient()">Add Ingredient</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>
+

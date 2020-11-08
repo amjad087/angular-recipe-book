@@ -1,0 +1,6 @@
+{
+  "/api": {
+    "target": "https://recipe-book-4e17a.firebaseio.com",
+    "secure": false
+  }
+}
